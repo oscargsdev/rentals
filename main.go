@@ -8,6 +8,7 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Server", "Go")
 	w.Write([]byte("Howdy, gimme a house to rent please."))
 }
 
@@ -16,6 +17,7 @@ func registerPropertyForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func registerPropertyPost(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("Registering a new property..."))
 }
 
@@ -26,8 +28,7 @@ func viewProperty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg := fmt.Sprintf("Viewing property with ID %d", id)
-	w.Write([]byte(msg))
+	fmt.Fprintf(w, "Viewing property with ID %d", id)
 }
 
 func main() {
